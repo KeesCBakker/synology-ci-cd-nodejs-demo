@@ -1,9 +1,12 @@
 #!/bin/sh
-name="hello"
-program="program_1"
+
+tag="hello" # tag of your container
+program="program" # docker-compose section to start
+
 stop_timeout=10
 need_build=false
 need_start=false
+full_docker_name="$tag$program1"
 
 function echo_title {
   echo ""
@@ -25,7 +28,7 @@ if [ -n "$need_pull" ] ; then
   git pull
   need_build=true
 else
-  image_exists=$(docker images | grep $name)
+  image_exists=$(docker images | grep $tag)
   if [ -z "$image_exists" ] ; then
     need_build=true
   fi
@@ -33,11 +36,11 @@ fi
 
 if [ "$need_build" = true ] ; then
   echo_title "BUILDING CONTAINER"
-  docker build -t "$name" .
+  docker build -t "$tag" .
   docker-compose stop -t $stop_timeout
   need_start=true
 else
-  is_running=$(docker ps | grep $name_$program)
+  is_running=$(docker ps | grep $full_docker_name)
   if [ -z "$is_running" ] ; then
     need_start=true
   fi
@@ -45,7 +48,7 @@ fi
 
 if [ "$need_start" = true ] ; then
   echo_title "STARTING CONTAINER"
-  docker-compose up -d program
+  docker-compose up -d $program
   echo ""
   echo "Container is up and running."
 else

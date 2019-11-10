@@ -35,7 +35,7 @@ fi
 
 if [ "$need_start" = true ] ; then
   docker-compose up -d program
-  echo "Container is now up and running."
+  echo "Container is up and running."
 else
   echo "No changes found. Container is already running."
 fi

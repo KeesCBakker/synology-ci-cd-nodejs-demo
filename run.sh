@@ -37,6 +37,7 @@ fi
 if [ "$need_build" = true ] ; then
   echo_title "BUILDING CONTAINER"
   docker build -t "$tag" .
+  echo_title "STOPPING RUNNING CONTAINER"
   docker-compose stop -t $stop_timeout
   need_start=true
 else

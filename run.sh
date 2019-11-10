@@ -7,9 +7,9 @@ need_start=false
 
 function echo_title {
   echo ""
-  echo "${1//./-}"
+  echo "$1" | sed -r 's/./-/g'
   echo "$1"
-  echo "${1//./-}"
+  echo "$1" | sed -r 's/./-/g'
   echo ""
 }
 

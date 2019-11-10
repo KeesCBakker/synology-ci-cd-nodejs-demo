@@ -4,6 +4,8 @@ FROM node:latest AS teststep
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
+COPY lib .
+COPY test .
 RUN npm ci --development
 
 # test

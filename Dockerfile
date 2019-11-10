@@ -1,11 +1,13 @@
+set -e; 
+
 # test using the latest node container
 FROM node:latest AS teststep
 
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
-COPY lib .
-COPY test .
+COPY lib ./lib
+COPY test ./test
 RUN npm ci --development
 
 # test
@@ -29,7 +31,7 @@ WORKDIR /app
 
 # Copy our node_modules into our deployable container context.
 COPY --from=buildstep /app/node_modules node_modules
-COPY lib/app.js .
+COPY lib ./lib
 
 # Launch our App.
-CMD ["node", "app.js"]
+CMD ["node", "lib/app.js"]

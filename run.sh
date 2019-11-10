@@ -5,10 +5,12 @@ stop_timeout=10
 need_build=false
 need_start=false
 
-function echo_title { 
+function echo_title {
+  echo ""
   echo "--------------------------"
   echo "$1"
   echo "--------------------------"
+  echo ""
 }
 
 if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then

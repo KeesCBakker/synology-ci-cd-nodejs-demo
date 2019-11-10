@@ -9,7 +9,7 @@ need_start=false
 full_docker_name="$tag$program1"
 
 function echo_title {
-  echo ""
+  printf "\n\n"
   echo "$1" | sed -r 's/./-/g'
   echo "$1"
   echo "$1" | sed -r 's/./-/g'

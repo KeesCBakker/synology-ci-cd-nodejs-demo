@@ -6,7 +6,7 @@ need_build=false
 need_start=false
 
 function echo_title { 
-  echo "\n\n-----\n$1\n----\n" 
+  printf "\n\n-----\n$1\n----\n" 
 }
 
 if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then

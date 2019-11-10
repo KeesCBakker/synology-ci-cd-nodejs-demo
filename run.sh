@@ -28,7 +28,7 @@ if [ -n "$need_pull" ] ; then
   git pull
   need_build=true
 else
-  image_exists=$(docker images | grep $tag)
+  image_exists=$(docker images | grep $tag || true)
   echo "hi"
   if [ -z "$image_exists" ] ; then
     need_build=true
@@ -42,7 +42,7 @@ if [ "$need_build" = true ] ; then
   docker-compose stop -t $stop_timeout
   need_start=true
 else
-  is_running=$(docker ps | grep $full_docker_name)
+  is_running=$(docker ps | grep $full_docker_name || true)
   if [ -z "$is_running" ] ; then
     need_start=true
   fi

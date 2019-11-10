@@ -1,5 +1,4 @@
 #!/bin/sh
-
 tag="hello" # tag of your container
 program="program" # docker-compose section to start
 
@@ -7,6 +6,7 @@ stop_timeout=10
 need_build=false
 need_start=false
 full_docker_name="$tag$program1"
+set -e;
 
 function echo_title {
   echo ""

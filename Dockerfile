@@ -1,5 +1,3 @@
-set -e; 
-
 # test using the latest node container
 FROM node:latest AS teststep
 

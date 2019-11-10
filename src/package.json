@@ -1,0 +1,24 @@
+{
+  "name": "synology-ci-cd-nodejs-demo",
+  "version": "1.0.0",
+  "description": "\"Hello World\" demo application using Express.",
+  "main": "app.js",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeesCBakker/synology-ci-cd-nodejs-demo.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KeesCBakker/synology-ci-cd-nodejs-demo/issues"
+  },
+  "homepage": "https://github.com/KeesCBakker/synology-ci-cd-nodejs-demo#readme"
+}

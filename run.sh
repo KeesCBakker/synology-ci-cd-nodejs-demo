@@ -29,7 +29,6 @@ if [ -n "$need_pull" ] ; then
   need_build=true
 else
   image_exists=$(docker images | grep $tag || true)
-  echo "hi"
   if [ -z "$image_exists" ] ; then
     need_build=true
   fi

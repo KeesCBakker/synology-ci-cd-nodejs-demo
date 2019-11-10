@@ -5,6 +5,8 @@ stop_timeout=10
 need_build=false
 need_start=false
 
+echo_title { echo "\n\n-----\n$1\n----\n" }
+
 if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then
   need_pull=true
 else
@@ -12,6 +14,7 @@ else
 fi
 
 if [ -n "$need_pull" ] ; then
+  echo_title "Pulling latest source..."
   git reset --hard
   git pull
   need_build=true
@@ -23,6 +26,7 @@ else
 fi
 
 if [ "$need_build" = true ] ; then
+  echo_title "Building container..."
   docker build -t "$name" .
   docker-compose stop -t $stop_timeout
   need_start=true
@@ -34,6 +38,7 @@ else
 fi
 
 if [ "$need_start" = true ] ; then
+  echo_title "Starting container..."
   docker-compose up -d program
   echo "Container is up and running."
 else

@@ -7,15 +7,18 @@
   "dependencies": {
     "express": "^4.17.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KeesCBakker/synology-ci-cd-nodejs-demo.git"
   },
-  "author": "",
+  "author": "Kees C. Bakker (https://keestalkstech.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/KeesCBakker/synology-ci-cd-nodejs-demo/issues"

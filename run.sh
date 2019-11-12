@@ -1,11 +1,11 @@
 #!/bin/sh
 tag="hello" # tag of your container
-program="program" # docker-compose section to start
+service="web" # docker-compose section to start
 
 stop_timeout=10
 need_build=false
 need_start=false
-full_docker_name="$tag$program1"
+full_docker_name="$tag$service1"
 set -e;
 
 function echo_title {
@@ -49,7 +49,7 @@ fi
 
 if [ "$need_start" = true ] ; then
   echo_title "STARTING CONTAINER"
-  docker-compose up -d $program
+  docker-compose up -d $service
   printf "\nContainer is up and running.\n\n"
 else
   echo "No changes found. Container is already running."

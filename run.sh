@@ -17,7 +17,8 @@ function echo_title {
 }
 
 # goto script directory
-cd "${0%/*}"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd $dir
 
 if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then
   need_pull=true

@@ -16,6 +16,9 @@ function echo_title {
   echo ""
 }
 
+# goto script directory
+cd "${0%/*}"
+
 if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then
   need_pull=true
 else

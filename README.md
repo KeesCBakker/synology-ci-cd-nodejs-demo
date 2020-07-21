@@ -6,4 +6,4 @@ If you run `bash run.sh`, it will use Docker and Docker Compose to spin up the a
 visit the IP of the machine on port 3000, it will return `Hello World! My watch says: {server-time}`.
 
 ## How does it do it?
-More at this blog. But it uses a multi stage container that will test & build a production container.
+<a href="https://keestalkstech.com/2019/11/docker-on-synology-from-git-to-running-container-the-easy-way/">More at this blog. But it uses a multi stage container that will test & build a production container.</a>

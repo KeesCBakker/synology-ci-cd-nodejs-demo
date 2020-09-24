@@ -5,6 +5,7 @@ service="web" # docker-compose section to start
 stop_timeout=10
 need_build=false
 need_start=false
+need_cleanup=false
 full_docker_name="$tag$service1"
 set -e;
 
@@ -54,6 +55,13 @@ if [ "$need_start" = true ] ; then
   echo_title "STARTING CONTAINER"
   docker-compose up -d $service
   printf "\nContainer is up and running.\n\n"
+  need_cleanup=true
 else
   echo "No changes found. Container is already running."
+fi
+
+if [ "$need_cleanup" = true ] ; then
+  echo_title "CLEAN-UP"
+  docker image prune --force --filter "label=cicd=$tag"
+  echo "\nImages have been clean up. CI/CD finished."
 fi

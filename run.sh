@@ -9,7 +9,6 @@ need_cleanup=false
 full_docker_name="$tag$service1"
 option1="$1"
 option2="$2"
-option3="$3"
 set -e;
 
 function echo_title {
@@ -21,8 +20,8 @@ function echo_title {
 }
 
 function has_option {
-  if [ "$option1" == "$1" ] || [ "$option2" == "$1" ] || [ "$option3" == "$1" ] ||
-     [ "$option1" == "$2" ] || [ "$option2" == "$2" ] || [ "$option3" == "$2" ]; then
+  if [ "$option1" == "$1" ] || [ "$option2" == "$1" ] ||
+     [ "$option1" == "$2" ] || [ "$option2" == "$2" ] ; then
     echo "true"
   else
     echo "false"

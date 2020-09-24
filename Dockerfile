@@ -2,7 +2,7 @@
 FROM node:latest AS teststep
 
 # mark it with a label, so we can remove dangling images
-LABEL CICD="hello"
+LABEL cicd="hello"
 
 WORKDIR /app
 COPY package.json .
@@ -18,7 +18,7 @@ RUN npm test
 FROM node:latest AS buildstep
 
 # mark it with a label, so we can remove dangling images
-LABEL CICD="hello"
+LABEL cicd="hello"
 
 # Copy in package.json, install
 # and build all node modules
@@ -32,7 +32,7 @@ RUN npm ci --production
 FROM node:alpine
 
 # mark it with a label, so we can remove dangling images
-LABEL CICD="hello"
+LABEL cicd="hello"
 
 # Copy our node_modules into our deployable container context.
 WORKDIR /app

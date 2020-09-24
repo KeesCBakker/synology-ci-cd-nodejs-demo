@@ -63,5 +63,5 @@ fi
 if [ "$need_cleanup" = true ] ; then
   echo_title "CLEAN-UP"
   docker image prune --force --filter "label=cicd=$tag"
-  echo "\nImages have been clean up. CI/CD finished."
+  printf "\nImages have been cleaned up. CI/CD finished."
 fi

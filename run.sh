@@ -7,6 +7,9 @@ need_build=false
 need_start=false
 need_cleanup=false
 full_docker_name="$tag$service1"
+option1="$1"
+option2="$2"
+option3="$3"
 set -e;
 
 function echo_title {
@@ -17,10 +20,19 @@ function echo_title {
   echo ""
 }
 
+function has_option {
+  if [ "$option1" == "$1" ] || [ "$option2" == "$1" ] || [ "$option3" == "$1" ] ||
+     [ "$option1" == "$2" ] || [ "$option2" == "$2" ] || [ "$option3" == "$2" ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
 # goto script directory
 pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-if [ "$1" = "--force" ] || [ "$1" == "-f" ] ; then
+if [ $(has_option "--force" "-f") == "true" ] ; then
   need_pull=true
 else
   need_pull=$(git fetch --dry-run 2>&1)
@@ -61,7 +73,15 @@ else
 fi
 
 if [ "$need_cleanup" = true ] ; then
-  echo_title "CLEAN-UP"
-  docker image prune --force --filter "label=cicd=$tag" --all
-  printf "\nImages have been cleaned up. CI/CD finished.\n\n"
+
+  if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
+    echo_title "CLEAN-UP"
+    docker image prune --force --all
+    printf "\nImages have been cleaned up. CI/CD finished.\n\n"
+  elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
+    echo_title "CLEAN-UP"
+    docker image prune --force --filter "label=cicd=$tag" --all
+    printf "\nImages have been cleaned up. CI/CD finished.\n\n"
+  fi
+
 fi

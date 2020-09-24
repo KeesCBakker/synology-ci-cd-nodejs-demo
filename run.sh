@@ -76,11 +76,11 @@ if [ "$need_cleanup" = true ] ; then
 
   if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
     echo_title "CLEAN-UP"
-    docker image prune --force --all
+    docker image prune --force
     printf "\nImages have been cleaned up. CI/CD finished.\n\n"
   elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
     echo_title "CLEAN-UP"
-    docker image prune --force --filter "label=cicd=$tag" --all
+    docker image prune --force --filter "label=cicd=$tag"
     printf "\nImages have been cleaned up. CI/CD finished.\n\n"
   fi
 

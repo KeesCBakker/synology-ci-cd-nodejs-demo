@@ -1,6 +1,9 @@
 # test using the latest node container
 FROM node:latest AS teststep
 
+# mark it with a label, so we can remove dangling images
+LABEL CICD="hello"
+
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
@@ -14,6 +17,9 @@ RUN npm test
 # build production packages with the latest node container
 FROM node:latest AS buildstep
 
+# mark it with a label, so we can remove dangling images
+LABEL CICD="hello"
+
 # Copy in package.json, install
 # and build all node modules
 WORKDIR /app
@@ -25,9 +31,11 @@ RUN npm ci --production
 # running on the device.
 FROM node:alpine
 
-WORKDIR /app
+# mark it with a label, so we can remove dangling images
+LABEL CICD="hello"
 
 # Copy our node_modules into our deployable container context.
+WORKDIR /app
 COPY --from=buildstep /app/node_modules node_modules
 COPY lib ./lib
 

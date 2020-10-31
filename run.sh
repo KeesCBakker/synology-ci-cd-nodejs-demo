@@ -29,7 +29,7 @@ function has_option {
 }
 
 # goto script directory
-pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" > /dev/null
 
 if [ $(has_option "--force" "-f") == "true" ] ; then
   need_pull=true

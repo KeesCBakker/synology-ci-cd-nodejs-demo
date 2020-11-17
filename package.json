@@ -9,10 +9,11 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.1.3"
+    "mocha": "^8.2.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "upgrade": "ncu -u & npm install & npm test"
   },
   "repository": {
     "type": "git",

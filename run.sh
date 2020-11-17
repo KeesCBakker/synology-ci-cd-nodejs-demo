@@ -29,7 +29,7 @@ function has_option {
 }
 
 # goto script directory
-pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" > /dev/null
 
 if [ $(has_option "--force" "-f") == "true" ] ; then
   need_pull=true
@@ -41,6 +41,7 @@ if [ -n "$need_pull" ] ; then
   echo_title "PULLING LATEST SOURCE CODE"
   git reset --hard
   git pull
+  git log --pretty=oneline -1
   need_build=true
 else
   image_exists=$(docker images | grep $tag || true)

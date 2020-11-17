@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
-    "upgrade": "ncu -u & npm install & npm test"
+    "upgrade": "git pull & ncu -u & npm install & npm test"
   },
   "repository": {
     "type": "git",

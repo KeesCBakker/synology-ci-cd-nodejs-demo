@@ -1,4 +1,4 @@
-# synology-ci-cd-nodejs-demo
+# Synology CI/CD Demo
 Builds and deploys a demo Node.js application to your Synology NAS using Docker and Docker-compose.
 
 ## What does it do?

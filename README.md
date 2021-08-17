@@ -7,4 +7,4 @@ Docker and Docker Compose to spin up the application. When you visit the IP of t
 port 3000, it will return `Hello World! My watch says: {server-time}`.
 
 ## How does it do it?
-<a href="https://keestalkstech.com/2019/11/docker-on-synology-from-git-to-running-container-the-easy-way/">In this blog I show how you can deploy this repository to your Synology NAS.</a>
+<a href="https://keestalkstech.com/2019/11/docker-on-synology-from-git-to-running-container-the-easy-way/">In this blog I show how you can deploy this repository to a Synology NAS.</a>

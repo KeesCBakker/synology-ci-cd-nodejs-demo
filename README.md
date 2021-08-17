@@ -1,5 +1,5 @@
 # Synology CI/CD Demo
-Builds and deploys a demo Node.js application to your Synology NAS using Docker and Docker-compose.
+Builds and deploys a demo Node.js application to your Synology NAS using Git, Docker and Docker-compose.
 
 ## What does it do?
 If you run `bash run.sh`, is wil check if the application is up to date (with Git) and it will use 

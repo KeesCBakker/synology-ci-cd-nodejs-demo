@@ -1,12 +1,10 @@
 #!/bin/sh
 tag="hello" # tag of your container
-service="web" # docker-compose section to start
 
 stop_timeout=10
 need_build=false
 need_start=false
 need_cleanup=false
-full_docker_name="$tag$service1"
 option1="$1"
 option2="$2"
 set -e;
@@ -41,8 +39,8 @@ if [ -n "$need_pull" ] ; then
   echo_title "PULLING LATEST SOURCE CODE"
   git reset --hard
   git pull
-  git log --pretty=oneline -1
   need_build=true
+  git log --pretty=oneline -1
 else
   image_exists=$(docker images | grep $tag || true)
   if [ -z "$image_exists" ] ; then
@@ -57,7 +55,7 @@ if [ "$need_build" = true ] ; then
   docker-compose stop -t $stop_timeout
   need_start=true
 else
-  is_running=$(docker ps | grep $full_docker_name || true)
+  is_running=$(docker-compose ps --q)
   if [ -z "$is_running" ] ; then
     need_start=true
   fi
@@ -65,7 +63,7 @@ fi
 
 if [ "$need_start" = true ] ; then
   echo_title "STARTING CONTAINER"
-  docker-compose up -d $service
+  docker-compose up -d
   printf "\nContainer is up and running.\n\n"
   need_cleanup=true
 else
@@ -76,7 +74,7 @@ if [ "$need_cleanup" = true ] ; then
 
   if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
     echo_title "CLEAN-UP"
-    docker image prune --force --all
+    docker image prune --force
     printf "\nImages have been cleaned up. CI/CD finished.\n\n"
   elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
     echo_title "CLEAN-UP"

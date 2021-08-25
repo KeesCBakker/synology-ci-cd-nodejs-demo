@@ -24,9 +24,11 @@ FROM node:alpine
 # mark it with a label, so we can remove dangling images
 LABEL cicd="hello"
 
-# Copy our node_modules into our deployable container context.
 WORKDIR /app
-COPY --from=ci /app/node_modules node_modules
+COPY package.json package-lock.json ./
+
+RUN npm ci --production
+
 COPY lib ./lib
 
 # Launch our App.

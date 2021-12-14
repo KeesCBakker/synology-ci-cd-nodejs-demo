@@ -1,15 +1,10 @@
 #!/bin/sh
-
 stop_timeout=10
-tag=$(cat docker-compose.yaml | grep -oP 'cicd:\s+\K\w+')
 need_build=false
 need_start=false
+option1="$1"
+option2="$2"
 set -e;
-
-if [ -z "$tag" ] ; then
-  printf "\nNo cicd label found in docker-compose file.\n\n"
-  exit 1
-fi
 
 function echo_title {
   echo ""
@@ -19,8 +14,6 @@ function echo_title {
   echo ""
 }
 
-option1="$1"
-option2="$2"
 function has_option {
   if [ "$option1" == "$1" ] || [ "$option2" == "$1" ] ||
      [ "$option1" == "$2" ] || [ "$option2" == "$2" ] ; then
@@ -29,9 +22,14 @@ function has_option {
     echo "false"
   fi
 }
-
 # goto script directory
 pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" > /dev/null
+
+tag=$(cat docker-compose.yaml | grep -oP 'cicd:\s+\K\w+')
+if [ -z "$tag" ] ; then
+  printf "\nNo cicd label found in docker-compose file.\n\n"
+  exit 1
+fi
 
 if [ $(has_option "--force" "-f") == "true" ] ; then
   need_pull=true

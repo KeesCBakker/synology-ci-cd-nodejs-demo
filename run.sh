@@ -25,9 +25,9 @@ function has_option {
 # goto script directory
 pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" > /dev/null
 
-tag=$(cat docker-compose.yaml | grep -oP 'cicd:\s+\K\w+')
+tag=$(cat Dockerfile | grep -oP 'cicd="\K\w+' | tail -1)
 if [ -z "$tag" ] ; then
-  printf "\nNo cicd label found in docker-compose file.\n\n"
+  printf "\nNo cicd LABEL found in Dockerfile.\n\n"
   exit 1
 fi
 

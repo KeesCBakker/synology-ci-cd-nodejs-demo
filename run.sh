@@ -9,11 +9,8 @@ option2="$2"
 set -e;
 
 function echo_title {
-  echo ""
-  echo "$1" | sed -r 's/./-/g'
-  echo "$1"
-  echo "$1" | sed -r 's/./-/g'
-  echo ""
+  line=$(echo "$1" | sed -r 's/./-/g')
+  printf "\n$line\n$1\n$line\n\n"
 }
 
 function has_option {

@@ -43,8 +43,8 @@ if [ -n "$need_pull" ] ; then
   echo_title "PULLING LATEST SOURCE CODE"
   git reset --hard
   git pull
-  need_build=true
   git log --pretty=oneline -1
+  need_build=true
 elif [ -z "$(docker images | grep $tag || true)" ] ; then
   need_build=true
 fi

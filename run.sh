@@ -50,9 +50,11 @@ elif [ -z "$(docker images | grep $tag || true)" ] ; then
 fi
 
 if [ "$need_build" = true ] ; then
-  echo_title "STOPPING RUNNING CONTAINER"
-  docker-compose stop -t $stop_timeout
-  need_start=true
+  if [ ! -z "$(docker-compose ps --status running -q)" ] ; then
+    echo_title "STOPPING RUNNING CONTAINER"
+    docker-compose stop -t $stop_timeout
+    need_start=true
+  fi
 elif [ -z "$(docker-compose ps --status running -q)" ] ; then
   need_start=true
 fi

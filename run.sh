@@ -1,13 +1,15 @@
 #!/bin/sh
-tag="hello" # tag of your container
 
 stop_timeout=10
+tag=$(cat docker-compose.yaml | grep -oP 'cicd:\s+\K\w+')
 need_build=false
 need_start=false
-need_cleanup=false
-option1="$1"
-option2="$2"
 set -e;
+
+if [ -z "$tag" ] ; then
+  printf "\nNo cicd label found in docker-compose file.\n\n"
+  exit 1
+fi
 
 function echo_title {
   echo ""
@@ -17,6 +19,8 @@ function echo_title {
   echo ""
 }
 
+option1="$1"
+option2="$2"
 function has_option {
   if [ "$option1" == "$1" ] || [ "$option2" == "$1" ] ||
      [ "$option1" == "$2" ] || [ "$option2" == "$2" ] ; then
@@ -41,45 +45,37 @@ if [ -n "$need_pull" ] ; then
   git pull
   need_build=true
   git log --pretty=oneline -1
-else
-  image_exists=$(docker images | grep $tag || true)
-  if [ -z "$image_exists" ] ; then
-    need_build=true
-  fi
+elif [ -z "$(docker images | grep $tag || true)" ] ; then
+  need_build=true
 fi
 
 if [ "$need_build" = true ] ; then
-  echo_title "BUILDING CONTAINER"
-  docker build -t "$tag" .
   echo_title "STOPPING RUNNING CONTAINER"
   docker-compose stop -t $stop_timeout
   need_start=true
-else
-  is_running=$(docker-compose ps --q)
-  if [ -z "$is_running" ] ; then
-    need_start=true
-  fi
+elif [ -z "$(docker-compose ps --status running -q)" ] ; then
+  need_start=true
 fi
 
-if [ "$need_start" = true ] ; then
+if [ "$need_start" = false ] ; then
+  echo "No changes found. Container is already running."
+
+elif [ "$need_build" = true ]; then
+  echo_title "BUILDING & STARTING CONTAINER"
+  docker-compose up -d --build
+  echo ""
+else
   echo_title "STARTING CONTAINER"
   docker-compose up -d
-  printf "\nContainer is up and running.\n\n"
-  need_cleanup=true
-else
-  echo "No changes found. Container is already running."
+  echo ""
 fi
 
-if [ "$need_cleanup" = true ] ; then
-
-  if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
-    echo_title "CLEAN-UP"
-    docker image prune --force
-    printf "\nImages have been cleaned up. CI/CD finished.\n\n"
-  elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
-    echo_title "CLEAN-UP"
-    docker image prune --force --filter "label=cicd=$tag"
-    printf "\nImages have been cleaned up. CI/CD finished.\n\n"
-  fi
-
+if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
+  echo_title "CLEAN-UP"
+  docker image prune --force
+elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
+  echo_title "CLEAN-UP"
+  docker image prune --force --filter "label=cicd=$tag"
 fi
+
+echo ""

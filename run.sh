@@ -65,11 +65,9 @@ if [ "$need_start" = false ] ; then
 elif [ "$need_build" = true ]; then
   echo_title "BUILDING & STARTING CONTAINER"
   docker-compose up -d --build
-  echo ""
 else
   echo_title "STARTING CONTAINER"
   docker-compose up -d
-  echo ""
 fi
 
 if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then

@@ -71,7 +71,7 @@ else
 fi
 
 if [ $(has_option "--full_cleanup" "-fcu") == "true" ] ; then
-  echo_title "CLEAN-UP"
+  echo_title "FULL CLEAN-UP"
   docker image prune --force
 elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
   echo_title "CLEAN-UP"

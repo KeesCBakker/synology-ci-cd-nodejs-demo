@@ -41,8 +41,8 @@ fi
 
 if [ -n "$need_pull" ] ; then
   echo_title "PULLING LATEST SOURCE CODE"
-  git reset --hard
-  git pull
+  #git reset --hard
+  #git pull
   git log --pretty=oneline -1
   need_build=true
 elif [ -z "$(docker images | grep $tag || true)" ] ; then
@@ -50,7 +50,7 @@ elif [ -z "$(docker images | grep $tag || true)" ] ; then
 fi
 
 status=$(docker-compose ps --status running -q)
-if [ "$need_build" = true ] ; then
+if [ $need_build ] ; then
   if [ ! -z "$status" ] ; then
     echo_title "STOPPING RUNNING CONTAINER"
     docker-compose stop -t $stop_timeout
@@ -60,9 +60,9 @@ elif [ -z $status ] ; then
   need_start=true
 fi
 
-if [ "$need_start" = false ] ; then
+if [ ! $need_start ] ; then
   printf "\nNo changes found. Container is already running.\n"
-elif [ "$need_build" = true ]; then
+elif [ $need_build ]; then
   echo_title "BUILDING & STARTING CONTAINER"
   docker-compose up -d --build
 else

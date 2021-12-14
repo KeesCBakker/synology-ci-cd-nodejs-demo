@@ -1,4 +1,6 @@
 #!/bin/sh
+export DOCKER_SCAN_SUGGEST=false
+
 stop_timeout=10
 need_build=false
 need_start=false

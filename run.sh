@@ -58,7 +58,7 @@ elif [ -z "$(docker-compose ps --status running -q)" ] ; then
 fi
 
 if [ "$need_start" = false ] ; then
-  printf "\nNo changes found. Container is already running.\n\n"
+  printf "\nNo changes found. Container is already running.\n"
 
 elif [ "$need_build" = true ]; then
   echo_title "BUILDING & STARTING CONTAINER"
@@ -77,3 +77,5 @@ elif [ $(has_option "--cleanup" "-cu") == "true" ] ; then
   echo_title "CLEAN-UP"
   docker image prune --force --filter "label=cicd=$tag"
 fi
+
+echo ""

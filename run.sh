@@ -53,8 +53,8 @@ if [ "$need_build" = true ] ; then
   if [ ! -z "$(docker-compose ps --status running -q)" ] ; then
     echo_title "STOPPING RUNNING CONTAINER"
     docker-compose stop -t $stop_timeout
-    need_start=true
   fi
+  need_start=true
 elif [ -z "$(docker-compose ps --status running -q)" ] ; then
   need_start=true
 fi

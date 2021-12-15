@@ -47,7 +47,7 @@ elif [ -z "$(docker images | grep $tag || true)" ] ; then
 fi
 
 status=$(docker-compose ps | grep -E "Up|running")
-if [ "$need_build" == true ] ; then
+if [ "$need_build" == "true" ] ; then
   if [ ! -z "$status" ] ; then
     echo_title "STOPPING RUNNING CONTAINER"
     docker-compose stop -t $stop_timeout
@@ -57,9 +57,9 @@ elif [ -z "$status" ] ; then
   need_start=true
 fi
 
-if [ "$need_start" == false ] ; then
+if [ "$need_start" == "false" ] ; then
   printf "\nNo changes found. Container is already running.\n"
-elif [ "$need_build" == true ]; then
+elif [ "$need_build" == "true" ]; then
   echo_title "BUILDING & STARTING CONTAINER"
   docker-compose up -d --build
 else

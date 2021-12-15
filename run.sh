@@ -46,7 +46,7 @@ elif [ -z "$(docker images | grep $tag || true)" ] ; then
   need_build=true
 fi
 
-status=$(docker-compose ps --status running -q)
+status=$(docker-compose ps | grep -E "Up|running")
 if [ "$need_build" == true ] ; then
   if [ ! -z "$status" ] ; then
     echo_title "STOPPING RUNNING CONTAINER"

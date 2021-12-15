@@ -57,8 +57,6 @@ elif [ -z "$status" ] ; then
   need_start=true
 fi
 
-echo "need_start: $need_start"
-
 if [ "$need_start" == "false" ] ; then
   printf "\nNo changes found. Container is already running.\n"
 elif [ "$need_build" == "true" ]; then

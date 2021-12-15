@@ -42,7 +42,7 @@ if [ -n "$need_pull" ] ; then
   git pull
   git log --pretty=oneline -1
   need_build=true
-elif [ -z "$(docker images | grep $tag || true)" ] ; then
+elif [ -z "$(docker images | grep "$tag" || true)" ] ; then
   need_build=true
 fi
 
@@ -56,6 +56,8 @@ if [ "$need_build" == "true" ] ; then
 elif [ -z "$status" ] ; then
   need_start=true
 fi
+
+echo "need_start: $need_start"
 
 if [ "$need_start" == "false" ] ; then
   printf "\nNo changes found. Container is already running.\n"

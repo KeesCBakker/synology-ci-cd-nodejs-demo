@@ -53,7 +53,7 @@ if [ "$need_build" == true ] ; then
     docker-compose stop -t $stop_timeout
   fi
   need_start=true
-elif [ -z $status ] ; then
+elif [ -z "$status" ] ; then
   need_start=true
 fi
 

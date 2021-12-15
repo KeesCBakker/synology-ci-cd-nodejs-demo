@@ -2,7 +2,7 @@
 
 Builds and deploys a Node.js demo application to your Synology NAS using sh, git, docker and docker-compose.
 
-## What does it do?
+## What!?
 
 If you run `bash run.sh`, it will check if the application is up to date (with Git) and use
 Docker and Docker Compose to spin up the application. When you visit the IP of the machine on
